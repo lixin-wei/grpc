@@ -142,8 +142,6 @@ class ServerImpl final {
 
   // This can be run in multiple threads if needed.
   void HandleRpcs() {
-    // Spawn a new CallData instance to serve new clients.
-    new CallData(&service_, cq_.get());
     void* tag;  // uniquely identifies a request.
     bool ok;
     while (true) {
@@ -153,6 +151,7 @@ class ServerImpl final {
       // The return value of Next should always be checked. This return value
       // tells us whether there is any kind of event or cq_ is shutting down.
       GPR_ASSERT(cq_->Next(&tag, &ok));
+      std::cout << "got!\n";
       GPR_ASSERT(ok);
       static_cast<CallData*>(tag)->Proceed();
     }
