@@ -55,7 +55,7 @@ class ServerImpl final {
     ServerBuilder builder;
     // Set a maximum memory cap
     grpc::ResourceQuota quota("greeter_callback_server");
-    quota.Resize(100*1024*1024); // 30MB
+    quota.Resize(100 * 1024 * 1024);  // 30MB
     builder.SetResourceQuota(quota);
     // Listen on the given address without any authentication mechanism.
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
