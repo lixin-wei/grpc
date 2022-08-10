@@ -53,6 +53,10 @@ class ServerImpl final {
     std::string server_address("0.0.0.0:50051");
 
     ServerBuilder builder;
+    // Set a maximum memory cap
+    grpc::ResourceQuota quota("greeter_callback_server");
+    quota.Resize(100*1024*1024); // 30MB
+    builder.SetResourceQuota(quota);
     // Listen on the given address without any authentication mechanism.
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     // Register "service_" as the instance through which we'll communicate with
